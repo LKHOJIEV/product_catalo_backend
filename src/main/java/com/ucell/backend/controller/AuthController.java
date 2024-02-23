@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/v1/api")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -30,7 +29,7 @@ public class AuthController {
 
     @ResponseBody
     @RequestMapping(value = "/get-token",method = RequestMethod.POST)
-    public ResponseEntity login(@RequestParam("user") String userName,
+    public ApiResponseToken login(@RequestParam("login") String userName,
                                 @RequestParam("secret") String password)  {
 
         try {
@@ -39,16 +38,15 @@ public class AuthController {
             String name = authentication.getName();
             Users user = new Users(name,password);
             String token = jwtUtil.createToken(user);
-            ApiResponseToken res = new ApiResponseToken(name,token,"",HttpStatus.OK);
 
-            return ResponseEntity.ok(res);
+            return new ApiResponseToken(name,token,"",HttpStatus.OK);
+
 
         }catch (BadCredentialsException e){
-            ApiResponseToken errorResponse = new ApiResponseToken("Invalid username or password",HttpStatus.BAD_REQUEST);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            return new ApiResponseToken("Invalid username or password",HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            ApiResponseToken errorResponse = new ApiResponseToken(e.getMessage(),HttpStatus.BAD_REQUEST);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            return new ApiResponseToken("credential error",HttpStatus.BAD_REQUEST);
+
         }
     }
 }

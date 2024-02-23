@@ -15,5 +15,13 @@ public class UserSearchingResponse {
     private Integer attempts;
     private Boolean isAccepted;
 
-
+    @Override
+    public String toString() {
+        return "UserSearchingResponse{" +
+                "message='" + message + '\'' +
+                ", status=" + status +
+                ", attempts=" + attempts +
+                ", isAccepted=" + isAccepted +
+                '}';
+    }
 }

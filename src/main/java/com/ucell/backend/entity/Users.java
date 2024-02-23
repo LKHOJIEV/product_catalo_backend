@@ -1,6 +1,7 @@
 package com.ucell.backend.entity;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
@@ -8,6 +9,7 @@ import org.springframework.data.neo4j.core.schema.Node;
 
 import java.util.Objects;
 @Node
+@Tag(name = "Users", description = "users node")
 public class Users {
 
     @Id

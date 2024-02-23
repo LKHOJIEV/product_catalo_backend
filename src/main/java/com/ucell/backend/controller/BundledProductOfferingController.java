@@ -5,7 +5,6 @@ import com.ucell.backend.service.BundledProductOfferingService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/")
 public class BundledProductOfferingController {
 
     private BundledProductOfferingService bundledProductOfferingService;
@@ -14,8 +13,9 @@ public class BundledProductOfferingController {
         this.bundledProductOfferingService = bundledProductOfferingService;
     }
 
-    @GetMapping("api/productOffers")
-    public ApiResponseV1 getAllProductOffers(@RequestParam(value = "details",defaultValue = "0") Integer detail,
+    @GetMapping("/productOffers")
+    public ApiResponseV1 getAllProductOffers(@RequestParam(value = "authToken") String authToken,
+                                             @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                              @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                              @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
@@ -23,9 +23,8 @@ public class BundledProductOfferingController {
 
     }
 
-    @GetMapping("api/productOffers/{id}")
-    public ApiResponseV1 getProductOffersById(@RequestParam("user") String user,
-                                              @RequestParam("secret") String password,
+    @GetMapping("/productOffers/{id}")
+    public ApiResponseV1 getProductOffersById(@RequestParam(value = "authToken") String authToken,
                                               @PathVariable("id") String id,
                                               @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                               @RequestParam(value = "offset",defaultValue = "0") Integer offset,

@@ -38,7 +38,13 @@ public class SecurityConfig  {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/v1/api/get-token").permitAll()
+                .requestMatchers(
+                        "/get-token",
+                        "/swagger-ui.html",
+                        "/swagger-ui/*",
+                        "/v3/api-docs/**",
+                        "/swagger-resources/**",
+                        "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);

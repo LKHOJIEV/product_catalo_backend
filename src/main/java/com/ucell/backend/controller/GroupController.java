@@ -5,7 +5,6 @@ import com.ucell.backend.service.GroupService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/")
 public class GroupController {
 
     private GroupService groupService;
@@ -15,8 +14,9 @@ public class GroupController {
     }
 
 
-    @GetMapping("api/group")
-    public ApiResponseV1 getAllCategory(@RequestParam(value = "direction",defaultValue = "in") String direction,
+    @GetMapping("/group")
+    public ApiResponseV1 getAllCategory(@RequestParam(value = "authToken") String authToken,
+                                        @RequestParam(value = "direction",defaultValue = "in") String direction,
                                         @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                         @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                         @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
@@ -25,8 +25,9 @@ public class GroupController {
 
     }
 
-    @GetMapping("api/group/{id}")
-    public ApiResponseV1 getCategoryById(@PathVariable("id") String id,
+    @GetMapping("/group/{id}")
+    public ApiResponseV1 getCategoryById(@RequestParam(value = "authToken") String authToken,
+                                         @PathVariable("id") String id,
                                          @RequestParam(value = "direction",defaultValue = "in") String direction,
                                          @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                          @RequestParam(value = "offset",defaultValue = "0") Integer offset,

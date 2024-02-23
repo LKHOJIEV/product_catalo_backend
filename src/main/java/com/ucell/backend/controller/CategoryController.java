@@ -5,7 +5,6 @@ import com.ucell.backend.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/")
 public class CategoryController {
 
 
@@ -16,8 +15,9 @@ public class CategoryController {
     }
 
 
-    @GetMapping("api/category")
-    public ApiResponseV1 getAllCategory(@RequestParam(value = "details",defaultValue = "0") Integer detail,
+    @GetMapping("/category")
+    public ApiResponseV1 getAllCategory(@RequestParam(value = "authToken") String authToken,
+                                        @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                         @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                         @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
@@ -25,8 +25,9 @@ public class CategoryController {
 
     }
 
-    @GetMapping("api/category/{id}")
-    public ApiResponseV1 getCategoryById(@PathVariable("id") String id,
+    @GetMapping("/category/{id}")
+    public ApiResponseV1 getCategoryById(@RequestParam(value = "authToken") String authToken,
+                                         @PathVariable("id") String id,
                                          @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                          @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                          @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {

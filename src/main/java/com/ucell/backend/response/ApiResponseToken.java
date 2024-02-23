@@ -18,4 +18,14 @@ public class ApiResponseToken {
 
     public ApiResponseToken(String invalidUsernameOrPassword, HttpStatus httpStatus) {
     }
+
+    @Override
+    public String toString() {
+        return "ApiResponseToken{" +
+                "name='" + name + '\'' +
+                ", token='" + token + '\'' +
+                ", message='" + message + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }
