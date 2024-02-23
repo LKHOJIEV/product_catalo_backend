@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,18 +20,9 @@ public class BundledProductOfferingService {
     private UsersService usersService;
 
 
-    public ApiResponseV1 getAllProductOffers(String user, String password, Integer detail, Integer offset, Integer limit)
+    public ApiResponseV1 getAllProductOffers(Integer detail, Integer offset, Integer limit)
             throws Exception {
 
-        if (!usersService.isRightUserWithPass(user,password).getIsAccepted()){
-            return new ApiResponseV1(
-                    usersService.isRightUserWithPass(user,password).getStatus(),
-                    usersService.isRightUserWithPass(user,password).getMessage(),
-                    null,
-                    0L,
-                    offset,
-                    limit);
-        }
             Pageable pageable = PageRequest.of(offset,limit);
 
             Page<BundledProductOffering> bundledProductOfferingList =
@@ -39,7 +31,7 @@ public class BundledProductOfferingService {
                             :  bundledProductOfferingRepository.findAllOnlyNode(pageable);
 
             return new ApiResponseV1(
-                    usersService.isRightUserWithPass(user,password).getStatus(),
+                    HttpStatus.ACCEPTED,
                     bundledProductOfferingList.getTotalElements()>0 ? "success" : "data not found",
                     bundledProductOfferingList.toList(),
                     bundledProductOfferingList.getTotalElements(),
@@ -48,18 +40,9 @@ public class BundledProductOfferingService {
 
     }
 
-    public ApiResponseV1 getProductOffersById(String user, String password, String id, Integer detail, Integer offset, Integer limit)
+    public ApiResponseV1 getProductOffersById(String id, Integer detail, Integer offset, Integer limit)
             throws Exception {
 
-        if (!usersService.isRightUserWithPass(user,password).getIsAccepted()){
-            return new ApiResponseV1(
-                    usersService.isRightUserWithPass(user,password).getStatus(),
-                    usersService.isRightUserWithPass(user,password).getMessage(),
-                    null,
-                    0L,
-                    offset,
-                    limit);
-        }
 
         Pageable pageable = PageRequest.of(offset,limit);
 
@@ -70,7 +53,7 @@ public class BundledProductOfferingService {
 
 
         return new ApiResponseV1(
-                usersService.isRightUserWithPass(user,password).getStatus(),
+                HttpStatus.ACCEPTED,
                 bundledProductOfferingList.getTotalElements()>0 ? "success" : "data not found",
                 bundledProductOfferingList.toList(),
                 bundledProductOfferingList.getTotalElements(),

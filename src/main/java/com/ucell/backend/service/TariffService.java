@@ -5,6 +5,7 @@ import com.ucell.backend.repository.TariffRepository;
 import com.ucell.backend.response.ApiResponseV1;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
@@ -21,19 +22,11 @@ public class TariffService {
         this.tariffRepository = tariffRepository;
     }
 
-    public ApiResponseV1 getTariffList(String userName, String password, Integer detail, String state, Integer offset, Integer limit)
+    public ApiResponseV1 getTariffList(Integer detail, String state, Integer offset, Integer limit)
             throws Exception {
 
 
-            if (!usersService.isRightUserWithPass(userName,password).getIsAccepted()){
-                return new ApiResponseV1(
-                        usersService.isRightUserWithPass(userName,password).getStatus(),
-                        usersService.isRightUserWithPass(userName,password).getMessage(),
-                        null,
-                        0L,
-                        offset,
-                        limit);
-            }
+
 
             Pageable pageable = (Pageable) PageRequest.of(offset,limit);
 
@@ -43,7 +36,7 @@ public class TariffService {
                             : tariffRepository.findAllByStateOnlyNode(state,pageable);
 
             return new ApiResponseV1(
-                    usersService.isRightUserWithPass(userName,password).getStatus(),
+                    HttpStatus.ACCEPTED,
                     tariffList.getTotalElements()>0 ? "success" : "data not found",
                     tariffList.toList(),
                     tariffList.getTotalElements(),
@@ -51,18 +44,9 @@ public class TariffService {
                     limit);
     }
 
-    public ApiResponseV1 getTariffbyRtpl(String user, String password, Integer detail, String id, String state, Integer offset, Integer limit)
+    public ApiResponseV1 getTariffbyRtpl(Integer detail, String id, String state, Integer offset, Integer limit)
             throws Exception {
 
-            if (!usersService.isRightUserWithPass(user,password).getIsAccepted()){
-                return new ApiResponseV1(
-                        usersService.isRightUserWithPass(user,password).getStatus(),
-                        usersService.isRightUserWithPass(user,password).getMessage(),
-                        null,
-                        0L,
-                        offset,
-                        limit);
-            }
 
             Pageable pageable = PageRequest.of(offset,limit);
 
@@ -72,7 +56,7 @@ public class TariffService {
                             : tariffRepository.findByRtplIdAndStateOnlyNode(id,state,pageable);
 
             return new ApiResponseV1(
-                    usersService.isRightUserWithPass(user,password).getStatus(),
+                    HttpStatus.ACCEPTED,
                     tariffList.getTotalElements()>0 ? "success" : "data not found",
                     tariffList.toList(),
                     tariffList.getTotalElements(),

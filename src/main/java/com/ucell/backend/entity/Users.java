@@ -14,6 +14,9 @@ public class Users {
     @GeneratedValue
     private String id;
 
+    public Users(String name, String password) {
+    }
+
     public String getId() {
         return id;
     }

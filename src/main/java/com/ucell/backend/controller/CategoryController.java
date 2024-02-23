@@ -17,25 +17,21 @@ public class CategoryController {
 
 
     @GetMapping("api/category")
-    public ApiResponseV1 getAllCategory(@RequestParam("user") String user,
-                                        @RequestParam("secret") String password,
-                                        @RequestParam(value = "details",defaultValue = "0") Integer detail,
+    public ApiResponseV1 getAllCategory(@RequestParam(value = "details",defaultValue = "0") Integer detail,
                                         @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                         @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return categoryService.getCategoryList(user, password, detail,offset,limit);
+        return categoryService.getCategoryList(detail,offset,limit);
 
     }
 
     @GetMapping("api/category/{id}")
-    public ApiResponseV1 getCategoryById(@RequestParam("user") String user,
-                                         @RequestParam("secret") String password,
-                                         @PathVariable("id") String id,
+    public ApiResponseV1 getCategoryById(@PathVariable("id") String id,
                                          @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                          @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                          @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return categoryService.getCategoryById(user, password, id, detail,offset,limit);
+        return categoryService.getCategoryById(id, detail,offset,limit);
 
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,17 +25,8 @@ public class CategoryService {
         this.usersService = usersService;
     }
 
-    public ApiResponseV1 getCategoryList(String userName, String password, Integer detail, Integer offset, Integer limit) throws Exception {
+    public ApiResponseV1 getCategoryList(Integer detail, Integer offset, Integer limit) throws Exception {
 
-        if (!usersService.isRightUserWithPass(userName,password).getIsAccepted()){
-            return new ApiResponseV1(
-                    usersService.isRightUserWithPass(userName,password).getStatus(),
-                    usersService.isRightUserWithPass(userName,password).getMessage(),
-                    null,
-                    0L,
-                    offset,
-                    limit);
-        }
 
         Pageable pageable = PageRequest.of(offset,limit);
 
@@ -44,7 +36,7 @@ public class CategoryService {
                         : categoryRepository.findAllOnlyNode(pageable);
 
         return new ApiResponseV1(
-                usersService.isRightUserWithPass(userName,password).getStatus(),
+                HttpStatus.ACCEPTED,
                 categoryList.getTotalElements()>0 ? "success" : "data not found",
                 categoryList.toList(),
                 categoryList.getTotalElements(),
@@ -53,17 +45,8 @@ public class CategoryService {
 
     }
 
-    public ApiResponseV1 getCategoryById(String user, String password, String id, Integer detail, Integer offset, Integer limit) throws Exception {
+    public ApiResponseV1 getCategoryById(String id, Integer detail, Integer offset, Integer limit) throws Exception {
 
-        if (!usersService.isRightUserWithPass(user,password).getIsAccepted()){
-            return new ApiResponseV1(
-                    usersService.isRightUserWithPass(user,password).getStatus(),
-                    usersService.isRightUserWithPass(user,password).getMessage(),
-                    null,
-                    0L,
-                    offset,
-                    limit);
-        }
             Pageable pageable = PageRequest.of(offset,limit);
 
             Page<Category> categories =
@@ -72,7 +55,7 @@ public class CategoryService {
                             : categoryRepository.findByCategoryIdOnlyNode(id,pageable);
 
             return new ApiResponseV1(
-                    usersService.isRightUserWithPass(user,password).getStatus(),
+                    HttpStatus.ACCEPTED,
                     categories.getTotalElements()>0 ? "success" : "data not found",
                     categories.toList(),
                     categories.getTotalElements(),

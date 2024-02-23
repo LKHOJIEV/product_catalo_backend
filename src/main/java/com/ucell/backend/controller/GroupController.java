@@ -16,27 +16,23 @@ public class GroupController {
 
 
     @GetMapping("api/group")
-    public ApiResponseV1 getAllCategory(@RequestParam("user") String user,
-                                        @RequestParam("secret") String password,
-                                        @RequestParam(value = "direction",defaultValue = "in") String direction,
+    public ApiResponseV1 getAllCategory(@RequestParam(value = "direction",defaultValue = "in") String direction,
                                         @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                         @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                         @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return groupService.getGroupList(user, password, direction,detail,offset,limit);
+        return groupService.getGroupList(direction,detail,offset,limit);
 
     }
 
     @GetMapping("api/group/{id}")
-    public ApiResponseV1 getCategoryById(@RequestParam("user") String user,
-                                         @RequestParam("secret") String password,
-                                         @PathVariable("id") String id,
+    public ApiResponseV1 getCategoryById(@PathVariable("id") String id,
                                          @RequestParam(value = "direction",defaultValue = "in") String direction,
                                          @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                          @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                          @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return groupService.getGroupByIdAndDirection(user, password, id, direction,detail,offset,limit);
+        return groupService.getGroupByIdAndDirection(id, direction,detail,offset,limit);
 
     }
 

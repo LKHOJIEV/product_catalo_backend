@@ -15,13 +15,11 @@ public class BundledProductOfferingController {
     }
 
     @GetMapping("api/productOffers")
-    public ApiResponseV1 getAllProductOffers(@RequestParam("user") String user,
-                                             @RequestParam("secret") String password,
-                                             @RequestParam(value = "details",defaultValue = "0") Integer detail,
+    public ApiResponseV1 getAllProductOffers(@RequestParam(value = "details",defaultValue = "0") Integer detail,
                                              @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                              @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return bundledProductOfferingService.getAllProductOffers(user,password,detail,offset,limit);
+        return bundledProductOfferingService.getAllProductOffers(detail,offset,limit);
 
     }
 
@@ -33,7 +31,7 @@ public class BundledProductOfferingController {
                                               @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                               @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return bundledProductOfferingService.getProductOffersById(user,password,id,detail,offset,limit);
+        return bundledProductOfferingService.getProductOffersById(id,detail,offset,limit);
 
     }
 
