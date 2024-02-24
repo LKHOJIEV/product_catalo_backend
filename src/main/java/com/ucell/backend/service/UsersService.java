@@ -35,17 +35,13 @@ public class UsersService {
     }
 
 
-    public ApiResponseToken getToken(String userName,String password){
+    public ApiResponseToken getToken(String userName,String password) throws BadCredentialsException {
         try {
             Authentication authentication =
                     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, password));
             String name = authentication.getName();
             Users user = new Users(name,password);
             String token = jwtUtil.createToken(user);
-
-            if (name.isBlank()){
-                return new ApiResponseToken("Invalid username or password",HttpStatus.BAD_REQUEST);
-            }
 
             return new ApiResponseToken(name,token,"",HttpStatus.OK);
 

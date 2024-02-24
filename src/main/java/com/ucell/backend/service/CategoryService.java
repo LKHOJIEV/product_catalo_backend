@@ -25,7 +25,7 @@ public class CategoryService {
         this.usersService = usersService;
     }
 
-    public ApiResponseV1 getCategoryList(Integer detail, Integer offset, Integer limit) throws Exception {
+    public ApiResponseV1 getCategoryList(String fields,Integer detail, Integer offset, Integer limit) throws Exception {
 
 
         Pageable pageable = PageRequest.of(offset,limit);
@@ -38,14 +38,14 @@ public class CategoryService {
         return new ApiResponseV1(
                 HttpStatus.ACCEPTED,
                 categoryList.getTotalElements()>0 ? "success" : "data not found",
-                categoryList.toList(),
-                categoryList.getTotalElements(),
+                CustomService.getFieldsByOrder(fields,categoryList),
+                (long) CustomService.getFieldsByOrder(fields,categoryList).size(),
                 offset,
                 limit);
 
     }
 
-    public ApiResponseV1 getCategoryById(String id, Integer detail, Integer offset, Integer limit) throws Exception {
+    public ApiResponseV1 getCategoryById(String fields,String id, Integer detail, Integer offset, Integer limit) throws Exception {
 
             Pageable pageable = PageRequest.of(offset,limit);
 
@@ -57,8 +57,8 @@ public class CategoryService {
             return new ApiResponseV1(
                     HttpStatus.ACCEPTED,
                     categories.getTotalElements()>0 ? "success" : "data not found",
-                    categories.toList(),
-                    categories.getTotalElements(),
+                    CustomService.getFieldsByOrder(fields,categories),
+                    (long) CustomService.getFieldsByOrder(fields,categories).size(),
                     offset,
                     limit);
 

@@ -24,7 +24,7 @@ public class GroupService {
 
 
 
-    public ApiResponseV1 getGroupByIdAndDirection(String id, String direction,Integer detail,Integer offset,Integer limit)
+    public ApiResponseV1 getGroupByIdAndDirection(String fields,String id, String direction,Integer detail,Integer offset,Integer limit)
             throws Exception {
 
 
@@ -38,13 +38,13 @@ public class GroupService {
         return new ApiResponseV1(
                 HttpStatus.ACCEPTED,
                 groupList.getTotalElements()>0 ? "success" : "data not found",
-                groupList.toList(),
-                groupList.getTotalElements(),
+                CustomService.getFieldsByOrder(fields,groupList),
+                (long) CustomService.getFieldsByOrder(fields,groupList).size(),
                 offset,
                 limit);
     }
 
-    public ApiResponseV1 getGroupList(String direction,Integer detail,Integer offset,Integer limit)
+    public ApiResponseV1 getGroupList(String fields,String direction,Integer detail,Integer offset,Integer limit)
             throws Exception {
 
 
@@ -59,8 +59,8 @@ public class GroupService {
             return new ApiResponseV1(
                     HttpStatus.ACCEPTED,
                     groups.getTotalElements()>0 ? "success" : "data not found",
-                    groups.toList(),
-                    groups.getTotalElements(),
+                    CustomService.getFieldsByOrder(fields,groups),
+                    (long) CustomService.getFieldsByOrder(fields,groups).size(),
                     offset,
                     limit);
     }

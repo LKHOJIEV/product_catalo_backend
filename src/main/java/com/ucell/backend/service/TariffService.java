@@ -22,11 +22,7 @@ public class TariffService {
         this.tariffRepository = tariffRepository;
     }
 
-    public ApiResponseV1 getTariffList(Integer detail, String state, Integer offset, Integer limit)
-            throws Exception {
-
-
-
+    public ApiResponseV1 getTariffList(String fields,Integer detail, String state, Integer offset, Integer limit) {
 
             Pageable pageable = (Pageable) PageRequest.of(offset,limit);
 
@@ -38,14 +34,13 @@ public class TariffService {
             return new ApiResponseV1(
                     HttpStatus.ACCEPTED,
                     tariffList.getTotalElements()>0 ? "success" : "data not found",
-                    tariffList.toList(),
-                    tariffList.getTotalElements(),
+                    CustomService.getFieldsByOrder(fields,tariffList),
+                    (long) CustomService.getFieldsByOrder(fields,tariffList).size(),
                     offset,
                     limit);
     }
 
-    public ApiResponseV1 getTariffbyRtpl(Integer detail, String id, String state, Integer offset, Integer limit)
-            throws Exception {
+    public ApiResponseV1 getTariffbyRtpl(String fields,Integer detail, String id, String state, Integer offset, Integer limit) {
 
 
             Pageable pageable = PageRequest.of(offset,limit);
@@ -58,8 +53,8 @@ public class TariffService {
             return new ApiResponseV1(
                     HttpStatus.ACCEPTED,
                     tariffList.getTotalElements()>0 ? "success" : "data not found",
-                    tariffList.toList(),
-                    tariffList.getTotalElements(),
+                    CustomService.getFieldsByOrder(fields,tariffList),
+                    (long) CustomService.getFieldsByOrder(fields,tariffList).size(),
                     offset,
                     limit);
 

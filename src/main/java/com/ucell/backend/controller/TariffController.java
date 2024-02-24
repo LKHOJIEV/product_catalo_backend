@@ -15,25 +15,27 @@ public class TariffController {
 
     @GetMapping("/tariff")
     public ApiResponseV1 getAllCategory(@RequestParam(value = "authToken") String authToken,
+                                        @RequestParam(value = "fields",defaultValue = "") String fields,
                                         @RequestParam(value = "state",defaultValue = "init") String state,
                                         @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                         @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                         @RequestParam(value = "limit",defaultValue = "20") Integer limit
                                         ) throws Exception {
 
-        return tariffService.getTariffList(detail,state,offset,limit);
+        return tariffService.getTariffList(fields,detail,state,offset,limit);
 
     }
 
     @GetMapping("/tariff/{id}")
     public ApiResponseV1 getAllCategory(@RequestParam(value = "authToken") String authToken,
+                                        @RequestParam(value = "fields",defaultValue = "") String fields,
                                         @RequestParam(value = "state",defaultValue = "init") String state,
                                         @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                         @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                         @RequestParam(value = "limit",defaultValue = "20") Integer limit,
                                         @PathVariable("id") String id) throws Exception {
 
-        return tariffService.getTariffbyRtpl(detail,id,state,offset,limit);
+        return tariffService.getTariffbyRtpl(fields,detail,id,state,offset,limit);
 
     }
 

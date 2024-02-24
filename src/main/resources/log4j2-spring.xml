@@ -31,7 +31,7 @@
         </Root>
 
         <!-- LOG "com.ucell*" at TRACE level -->
-        <Logger name="com.ucell" level="info"></Logger>
+        <Logger name="com.ucell" level="error"></Logger>
     </Loggers>
 
 </Configuration>

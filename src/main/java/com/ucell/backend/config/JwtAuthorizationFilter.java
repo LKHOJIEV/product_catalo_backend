@@ -41,12 +41,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
-            System.out.println("token : "+accessToken);
+            //System.out.println("token : "+accessToken);
             Claims claims = jwtUtil.resolveClaims(request);
 
             if(claims != null & jwtUtil.validateClaims(claims)){
                 String name = claims.getSubject();
-                System.out.println("name : "+name);
+                //System.out.println("name : "+name);
                 Authentication authentication =
                         new UsernamePasswordAuthenticationToken(name,"",new ArrayList<>());
                 SecurityContextHolder.getContext().setAuthentication(authentication);

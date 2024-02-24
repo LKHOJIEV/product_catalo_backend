@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class AuthController {
 
     private final UsersService usersService;
@@ -22,8 +22,7 @@ public class AuthController {
         this.usersService = usersService;
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/get-token",method = RequestMethod.POST)
+    @PostMapping(value = "/get-token")
     public ApiResponseToken login(@RequestParam("login") String userName,
                                 @RequestParam("password") String password)  {
 

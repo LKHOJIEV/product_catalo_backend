@@ -15,7 +15,7 @@ public class BundledProductOfferingController {
         this.bundledProductOfferingService = bundledProductOfferingService;
     }
 
-    @GetMapping("/productOffers")
+    @GetMapping("/bundledProductOffers")
     public ApiResponseV1 getAllProductOffers(@RequestParam(value = "authToken") String authToken,
                                              @RequestParam(value = "fields",defaultValue = "") String fields,
                                              @RequestParam(value = "details",defaultValue = "0") Integer detail,
@@ -26,14 +26,15 @@ public class BundledProductOfferingController {
 
     }
 
-    @GetMapping("/productOffers/{id}")
+    @GetMapping("/bundledProductOffers/{id}")
     public ApiResponseV1 getProductOffersById(@RequestParam(value = "authToken") String authToken,
+                                              @RequestParam(value = "fields",defaultValue = "") String fields,
                                               @PathVariable("id") String id,
                                               @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                               @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                               @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return bundledProductOfferingService.getProductOffersById(id,detail,offset,limit);
+        return bundledProductOfferingService.getProductOffersById(fields,id,detail,offset,limit);
 
     }
 

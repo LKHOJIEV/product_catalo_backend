@@ -16,24 +16,26 @@ public class GroupController {
 
     @GetMapping("/group")
     public ApiResponseV1 getAllCategory(@RequestParam(value = "authToken") String authToken,
+                                        @RequestParam(value = "fields",defaultValue = "") String fields,
                                         @RequestParam(value = "direction",defaultValue = "in") String direction,
                                         @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                         @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                         @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return groupService.getGroupList(direction,detail,offset,limit);
+        return groupService.getGroupList(fields,direction,detail,offset,limit);
 
     }
 
     @GetMapping("/group/{id}")
     public ApiResponseV1 getCategoryById(@RequestParam(value = "authToken") String authToken,
+                                         @RequestParam(value = "fields",defaultValue = "") String fields,
                                          @PathVariable("id") String id,
                                          @RequestParam(value = "direction",defaultValue = "in") String direction,
                                          @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                          @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                          @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return groupService.getGroupByIdAndDirection(id, direction,detail,offset,limit);
+        return groupService.getGroupByIdAndDirection(fields,id, direction,detail,offset,limit);
 
     }
 
