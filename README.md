@@ -8,7 +8,7 @@ Swagger: http://host:8118/swagger-ui/index.html#/
 endpoind characteristics:
 
 User creditionals are given as parametr to get token:
-http://host:8118/get-token?login=***&secret=***
+http://host:8118/get-token?login=***&password=***
 
 
 Incoming parametrs for each API:
