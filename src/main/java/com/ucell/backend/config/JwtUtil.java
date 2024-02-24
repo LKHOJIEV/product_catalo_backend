@@ -16,7 +16,7 @@ public class JwtUtil {
 
     private final String secret_key = "secreeeeeeeeeeettttttttttt";
 
-    private final long accessTokenValidity = 60 * 5;
+    private final long accessTokenValidity = 25; // at minutes
 
     private final JwtParser jwtParser;
 
@@ -33,6 +33,7 @@ public class JwtUtil {
         claims.put("channel",user.getChannel());
         Date tokenCreateTime = new Date();
         Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(accessTokenValidity));
+        System.out.println("tokenValidity: "+tokenValidity);
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(tokenValidity)

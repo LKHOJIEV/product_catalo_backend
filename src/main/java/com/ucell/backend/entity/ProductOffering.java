@@ -15,39 +15,28 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BundledProductOffering {
+public class ProductOffering {
 
     @Id
     @GeneratedValue
-    private String id;
-
-    private String rtplId;
+    private Long id;
     private String isBundle;
     private String code;
+    private String durDays;
+    private String ptypId;
+    private String productId;
     private String name;
+    private String description;
     private String activeStart;
-    private String externalId;
-    private String ctypId;
-    private String ccatId;
+    private String isCart;
     private String activeEnd;
-    private String isActive;
-    private String rptpId;
+    private String durMonths;
     private String type;
 
-    @Relationship(type = "has",direction = Relationship.Direction.OUTGOING)
-    public Set<Characteristics> has;
+    @Relationship(type = "product_offering_relationship",direction = Relationship.Direction.OUTGOING)
+    private Set<BundledProductOffering> product_offering_relationship;
 
-    public void has(Characteristics characteristic) {
-        if (has == null) {
-            has = new HashSet<>();
-        }
-        has.add(characteristic);
-    }
-
-    @Relationship(type = "product_offering_relationship",direction = Relationship.Direction.INCOMING)
-    private Set<ProductOffering> product_offering_relationship;
-
-    public void productOfferingRelationship(ProductOffering offering) {
+    public void productOfferingRelationship(BundledProductOffering offering) {
         if (product_offering_relationship == null) {
             product_offering_relationship = new HashSet<>();
         }

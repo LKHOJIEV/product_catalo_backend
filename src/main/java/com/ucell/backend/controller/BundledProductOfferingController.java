@@ -4,6 +4,8 @@ import com.ucell.backend.response.ApiResponseV1;
 import com.ucell.backend.service.BundledProductOfferingService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 public class BundledProductOfferingController {
 
@@ -15,11 +17,12 @@ public class BundledProductOfferingController {
 
     @GetMapping("/productOffers")
     public ApiResponseV1 getAllProductOffers(@RequestParam(value = "authToken") String authToken,
+                                             @RequestParam(value = "fields",defaultValue = "") String fields,
                                              @RequestParam(value = "details",defaultValue = "0") Integer detail,
                                              @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                              @RequestParam(value = "limit",defaultValue = "20") Integer limit) throws Exception {
 
-        return bundledProductOfferingService.getAllProductOffers(detail,offset,limit);
+        return bundledProductOfferingService.getAllProductOffers(fields,detail,offset,limit);
 
     }
 

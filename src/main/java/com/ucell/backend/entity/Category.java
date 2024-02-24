@@ -26,13 +26,13 @@ public class Category {
     private String type;
 
     @Relationship(type = "belongs",direction = Relationship.Direction.INCOMING)
-    public Set<BundledProductOffering> products;
+    public Set<BundledProductOffering> belongs;
 
     public void belongs(BundledProductOffering bundledProductOffering) {
-        if (products == null) {
-            products = new HashSet<>();
+        if (belongs == null) {
+            belongs = new HashSet<>();
         }
-        products.add(bundledProductOffering);
+        belongs.add(bundledProductOffering);
     }
 
     public String getId() {

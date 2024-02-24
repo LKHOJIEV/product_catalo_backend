@@ -15,35 +15,23 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Group {
+public class Channel {
 
-@Id
+    @Id
     @GeneratedValue
     private Long id;
-    private String direction;
-    private String group_id;
-    private String rtplId;
+    private String channelId;
+    private String name;
     private String type;
 
-    @Relationship(value = "has_rule_policy")
-    private Group out;
+    @Relationship(type = "available_in",direction = Relationship.Direction.OUTGOING)
+    private Set<BundledProductOffering> offers;
 
-    @Relationship(value = "belongs_to",direction = Relationship.Direction.INCOMING)
-    private Set<Tariff> belongs_to;
-
-    public void belongs_to(Tariff tariff) {
-        if (belongs_to == null) {
-            belongs_to = new HashSet<>();
+    public void available_in(BundledProductOffering offer) {
+        if (offers == null) {
+            offers = new HashSet<>();
         }
-        belongs_to.add(tariff);
+        offers.add(offer);
     }
-
-
-/**
-     * direction	out
-     * group_id
-     * rtplId	184
-     * type	any
-     */
 
 }

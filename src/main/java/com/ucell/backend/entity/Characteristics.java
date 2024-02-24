@@ -30,13 +30,13 @@ public class Characteristics {
     private String type;
 
     @Relationship(type = "has_characteristics",direction = Relationship.Direction.OUTGOING)
-    private Set<Characteristics_details> details;
+    private Set<Characteristics_details> has_characteristics;
 
     public void has_characteristics(Characteristics_details characteristics_details) {
-        if (details == null) {
-            details = new HashSet<>();
+        if (has_characteristics == null) {
+            has_characteristics = new HashSet<>();
         }
-        details.add(characteristics_details);
+        has_characteristics.add(characteristics_details);
     }
 
 }
